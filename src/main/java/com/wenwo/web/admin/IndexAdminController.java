@@ -104,5 +104,4 @@ public class IndexAdminController extends BaseController {
         siteConfig.getCookie().getDomain(), "/admin/");
     return redirect("/admin/login");
   }
-
 }

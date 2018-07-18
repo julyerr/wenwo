@@ -1,5 +1,8 @@
 package com.wenwo.web.front;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.wenwo.config.SiteConfig;
 import com.wenwo.core.base.BaseController;
 import com.wenwo.core.util.CookieHelper;
@@ -10,7 +13,6 @@ import com.wenwo.module.user.model.User;
 import com.wenwo.module.user.service.OAuth2UserService;
 import com.wenwo.module.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -68,14 +70,25 @@ public class OAuth2Controller extends BaseController {
         String url1 = "https://api.github.com/user?access_token=" + accessToken;
         RestTemplate restTemplate1 = new RestTemplate();
         String resp1 = restTemplate1.getForObject(url1, String.class);
-        Map<String, Object> json = new BasicJsonParser().parseMap(resp1);
-        String nickName = (String) json.get("login");
-        String avatar = (String) json.get("avatar_url");
-        String githubId = String.valueOf(json.get("id"));
-        String email = (String) json.get("email");
-        String bio = (String) json.get("bio");
-//      String blog = (String) jsonObject.get("blog");
-        String html_url = (String) json.get("html_url");
+	JsonObject jsonObject = new JsonParser().parse(resp1).getAsJsonObject();
+        String nickName = jsonObject.get("login").getAsString();
+        String avatar = jsonObject.get("avatar_url").getAsString();
+        String githubId = jsonObject.get("id").getAsString();
+        JsonElement tmp = jsonObject.get("email");
+        String email = null;
+        if (!tmp.isJsonNull()) {
+            email = tmp.getAsString();
+        }
+        tmp = jsonObject.get("bio");
+        String bio = null;
+        if (!tmp.isJsonNull()) {
+            bio = tmp.getAsString();
+        }
+        String html_url = null;
+        tmp = jsonObject.get("html_url");
+        if (!tmp.isJsonNull()) {
+            html_url = tmp.getAsString();
+        }
 
         OAuth2User oAuth2User = oAuth2UserService.findByOauthUserIdAndType(githubId, OAuth2User.Type.GITHUB.name());
         User user;

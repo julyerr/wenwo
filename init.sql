@@ -1,6 +1,6 @@
 INSERT INTO `wenwo_admin_user` (`id`, `in_time`, `password`, `token`, `username`, `role_id`)
 VALUES
-  (1, '2018-03-19 16:24:24', '$2a$10$173kismq9rW55yKEM5rLyej6mfBMr6jYxnFKqSdUFLvV4P9hAHhM.', '1efbaf4e-5cba-487f-a8db-dc375073b050', 'admin', 1);
+  (1, '2018-07-18 00:00:00', '$2a$10$Tudq82ap3RQ0oG8Ts/EL2.pPiwuWe.cS.EHnSbu30lie5fU76YaWS.', '70989be6-0e03-48fe-9153-1a60cbdbef3e', 'admin', 1);
 
 INSERT INTO `wenwo_permission` (`id`, `name`, `pid`, `url`, `value`)
 VALUES

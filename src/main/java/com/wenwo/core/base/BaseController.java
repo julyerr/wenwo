@@ -23,7 +23,6 @@ public class BaseController {
    */
   protected String redirect(String path) {
     String baseUrl = siteConfig.getBaseUrl();
-    baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
     return "redirect:" + baseUrl + path;
   }
 

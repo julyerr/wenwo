@@ -172,4 +172,5 @@ public class UserService {
     ValueOperations<String, String> stringStringValueOperations = stringRedisTemplate.opsForValue();
     stringStringValueOperations.set(user.getToken(), JsonUtil.objectToJson(user));
   }
+
 }

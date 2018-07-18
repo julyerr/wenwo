@@ -135,42 +135,4 @@ public class UserController extends BaseController {
     return "front/user/setting/changePassword";
   }
 
-  /**
-   * 用户的Token页面
-   *
-   * @param model
-   * @return
-   */
-  @GetMapping("/setting/accessToken")
-  public String accessToken(Model model) {
-    model.addAttribute("user", getUser());
-    return "/front/user/setting/accessToken";
-  }
-
-  /**
-   * 刷新token
-   *
-   * @return
-   */
-  @GetMapping("/setting/refreshToken")
-  public String refreshToken() {
-    User user = getUser();
-    userService.save(user);
-    return redirect("/user/setting/accessToken");
-  }
-
-  /**
-   * query user log history
-   *
-   * @param p     page
-   * @param model
-   * @return
-   */
-  @GetMapping("/setting/log")
-  public String scoreLog(@RequestParam(defaultValue = "1") Integer p, Model model) {
-    User user = getUser();
-    model.addAttribute("page", logService.findByUserId(p, siteConfig.getPageSize(), user.getId()));
-    return "front/user/setting/log";
-  }
-
 }
